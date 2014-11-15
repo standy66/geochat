@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="theme_lightest" type="color">#FFC9F76F</item>
+    <item name="theme_light" type="color">#FFB9F73E</item>
+    <item name="theme_normal" type="color">#FF9FEE00</item>
+    <item name="theme_dark" type="color">#FF679B00</item>
 
     <item name="blue" type="color">#FF33B5E5</item>
     <item name="purple" type="color">#FFAA66CC</item>
