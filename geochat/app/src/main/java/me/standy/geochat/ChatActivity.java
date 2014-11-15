@@ -4,14 +4,46 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+
+import java.util.List;
 
 
 public class ChatActivity extends Activity {
+
+    private Button sendButton;
+    private EditText messageBox;
+    private ListView chatHistory;
+    private ChatArrayAdapter chatArrayAdapter;
+
+    private boolean isMine = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        sendButton = (Button) findViewById(R.id.sendButton);
+        messageBox = (EditText) findViewById(R.id.messageBox);
+        chatHistory = (ListView) findViewById(R.id.chatHistory);
+
+        chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(), R.layout.single_message);
+        chatHistory.setAdapter(chatArrayAdapter);
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chatArrayAdapter.add(new ChatMessage("Andey", messageBox.getText().toString(), isMine));
+                messageBox.setText("");
+                isMine = !isMine;
+            }
+        });
+
+
     }
 
 
