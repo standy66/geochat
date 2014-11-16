@@ -1,6 +1,7 @@
 package me.standy.geochat;
 
 import android.app.Activity;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,10 +41,9 @@ public class ChatActivity extends Activity {
                 chatArrayAdapter.add(new ChatMessage("Andey", messageBox.getText().toString(), isMine));
                 messageBox.setText("");
                 isMine = !isMine;
+                chatHistory.setSelection(chatArrayAdapter.getCount() - 1);
             }
         });
-
-
     }
 
 
