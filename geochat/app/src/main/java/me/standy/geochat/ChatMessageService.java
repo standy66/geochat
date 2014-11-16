@@ -36,9 +36,9 @@ public class ChatMessageService {
 
     private class SubscribeCallback extends Callback {
         @Override
-        public void successCallback(String channel, Object message, String timeToken) {
-            super.successCallback(channel, message, timeToken);
+        public void successCallback(String channel, Object message) {
             JSONObject jsonMessage = (JSONObject) message;
+            Log.i(LOG_TAG, jsonMessage.toString());
             if (jsonMessage != null) {
                 callback.onChatMessageArrive(ChatMessage.fromJSON(jsonMessage));
 
@@ -49,7 +49,6 @@ public class ChatMessageService {
 
         @Override
         public void errorCallback(String s, PubnubError pubnubError) {
-            super.errorCallback(s, pubnubError);
             Log.e(LOG_TAG, pubnubError.toString());
         }
     }
@@ -57,13 +56,11 @@ public class ChatMessageService {
     private class PublishCallback extends Callback {
         @Override
         public void successCallback(String s, Object o) {
-            super.successCallback(s, o);
             Log.d(LOG_TAG, o.toString());
         }
 
         @Override
         public void errorCallback(String s, PubnubError pubnubError) {
-            super.errorCallback(s, pubnubError);
             Log.e(LOG_TAG, pubnubError.toString());
         }
     }
