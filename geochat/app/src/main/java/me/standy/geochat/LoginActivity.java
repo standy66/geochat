@@ -69,6 +69,12 @@ public class LoginActivity extends Activity {
                     }
 
                     @Override
+                    public void onAcceptUserToken(VKAccessToken token) {
+                        Intent i = new Intent(LoginActivity.this, ChatActivity.class);
+                        startActivity(i);
+                    }
+
+                    @Override
                     public void onAccessDenied(VKError authorizationError) {
                         new AlertDialog.Builder(LoginActivity.this).setMessage(authorizationError.errorMessage).show();
                     }
