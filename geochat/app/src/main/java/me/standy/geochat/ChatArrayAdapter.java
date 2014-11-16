@@ -44,7 +44,7 @@ public class ChatArrayAdapter extends ArrayAdapter {
         LinearLayout singleMessageContainer = (LinearLayout) row.findViewById(R.id.singleMessageContainer);
         ChatMessage chatMessageObj = getItem(position);
         TextView chatText = (TextView) row.findViewById(R.id.singleMessage);
-        chatText.setText(chatMessageObj.messageBody);
+        chatText.setText(chatMessageObj.toString());
         chatText.setBackgroundResource(chatMessageObj.isMine ? R.drawable.bubble_left : R.drawable.bubble_right);
         singleMessageContainer.setGravity(chatMessageObj.isMine ? Gravity.LEFT : Gravity.RIGHT);
         return row;

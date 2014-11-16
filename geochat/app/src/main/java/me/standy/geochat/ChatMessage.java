@@ -42,4 +42,9 @@ public class ChatMessage {
         }
         return jsonObject;
     }
+
+    @Override
+    public String toString() {
+        return sender + "\n" + messageBody;
+    }
 }
