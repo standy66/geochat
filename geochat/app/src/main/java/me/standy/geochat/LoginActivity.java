@@ -79,10 +79,9 @@ public class LoginActivity extends Activity {
                         new AlertDialog.Builder(LoginActivity.this).setMessage(authorizationError.errorMessage).show();
                     }
                 }, APP_ID,VKAccessToken.tokenFromSharedPreferences(LoginActivity.this,TOKEN_NAME));
-
+                VKSdk.authorize(myScope, true, false);
             }
         });
-        VKSdk.authorize(myScope, true, false);
     }
 
 
