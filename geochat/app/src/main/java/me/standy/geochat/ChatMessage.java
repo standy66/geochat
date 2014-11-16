@@ -9,13 +9,14 @@ import org.json.JSONObject;
 public class ChatMessage {
     public String messageBody;
     public String sender;
+    public String vkId;
     //TODO: maybe we do not need isMine at all
     public boolean isMine;
 
-    public ChatMessage(String sender, String messageBody, boolean isMine) {
+    public ChatMessage(String sender, String vkId, String messageBody, boolean isMine) {
+        this.vkId = vkId;
         this.sender = sender;
         this.messageBody = messageBody;
-        this.isMine = isMine;
     }
 
     public static final ChatMessage fromJSON(JSONObject jsonObject) {
@@ -25,8 +26,9 @@ public class ChatMessage {
         try {
             String sender = jsonObject.getString("sender");
             String messageBody = jsonObject.getString("message");
+            String vkId = jsonObject.getString("vkId");
             //we guaranteed that sender and messageBody is not null here
-            return new ChatMessage(sender, messageBody, false);
+            return new ChatMessage(sender, vkId, messageBody, false);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -37,6 +39,7 @@ public class ChatMessage {
         try {
             jsonObject.put("sender", sender);
             jsonObject.put("message", messageBody);
+            jsonObject.put("vkId", vkId);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

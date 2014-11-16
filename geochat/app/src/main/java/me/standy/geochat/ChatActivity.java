@@ -29,6 +29,7 @@ public class ChatActivity extends Activity implements ChatMessageService.OnChatM
     private ListView chatHistory;
     private ChatArrayAdapter chatArrayAdapter;
     private String userName;
+    private String vkId;
     private ChatMessageService chatMessageService;
 
 
@@ -43,7 +44,9 @@ public class ChatActivity extends Activity implements ChatMessageService.OnChatM
         VKApi.users().get().executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
-                userName = ((VKList<VKApiUserFull>) response.parsedModel).get(0).first_name;
+                VKApiUserFull currentUser = ((VKList<VKApiUserFull>) response.parsedModel).get(0);
+                userName = currentUser.first_name;
+                vkId = "id" + String.valueOf(currentUser.id);
             }
 
             @Override
@@ -64,11 +67,9 @@ public class ChatActivity extends Activity implements ChatMessageService.OnChatM
             @Override
             public void onClick(View v) {
                 if (!messageBox.getText().toString().isEmpty()) {
-                    ChatMessage message = new ChatMessage(userName, messageBox.getText().toString(), true);
-                    chatArrayAdapter.add(message);
+                    ChatMessage message = new ChatMessage(userName, vkId, messageBox.getText().toString(), true);
                     messageBox.setText("");
                     chatMessageService.sendMessage(message);
-                    chatHistory.setSelection(chatArrayAdapter.getCount() - 1);
                     messageBox.requestFocus();
                 }
             }
@@ -79,6 +80,8 @@ public class ChatActivity extends Activity implements ChatMessageService.OnChatM
 
     @Override
     public void onChatMessageArrive(final ChatMessage message) {
+        message.isMine = (message.vkId.equals(vkId));
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
