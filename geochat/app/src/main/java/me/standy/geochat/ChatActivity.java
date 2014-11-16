@@ -38,10 +38,13 @@ public class ChatActivity extends Activity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chatArrayAdapter.add(new ChatMessage("Andey", messageBox.getText().toString(), isMine));
-                messageBox.setText("");
-                isMine = !isMine;
-                chatHistory.setSelection(chatArrayAdapter.getCount() - 1);
+                if (!messageBox.getText().toString().isEmpty()) {
+                    chatArrayAdapter.add(new ChatMessage("Andey", messageBox.getText().toString(), isMine));
+                    messageBox.setText("");
+                    isMine = !isMine;
+                    chatHistory.setSelection(chatArrayAdapter.getCount() - 1);
+                    messageBox.requestFocus();
+                }
             }
         });
     }
